@@ -244,7 +244,7 @@ enum ProcessIcon {
 
     static func image(for pid: pid_t) -> NSImage {
         if let cached = cache[pid] { return cached }
-        let image = NSRunningApplication(processIdentifier: pid)?.icon ?? generic
+        let image = Demo.icon(for: pid) ?? NSRunningApplication(processIdentifier: pid)?.icon ?? generic
         if cache.count > 200 { cache.removeAll() }
         cache[pid] = image
         return image

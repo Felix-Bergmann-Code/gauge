@@ -73,6 +73,7 @@
   .card h3 i { width: 10px; height: 10px; border-radius: 3px; }
   .card p { margin: 0; color: var(--muted); font-size: 15px; }
   .card code { font-size: 13px; }
+  .shot { width: 100%; height: auto; display: block; border-radius: 18px; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
   .stat { font-size: 40px; font-weight: 700; letter-spacing: -.03em; }
   pre { background: #0d1014; color: #e8ecef; border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; overflow-x: auto; font: 14px/1.6 ui-monospace, "SF Mono", Menlo, monospace; margin: 0; }
   pre .c { color: #6b7784; }
@@ -136,6 +137,12 @@
       <div class="card"><h3><i style="background:var(--net)"></i>Network</h3><p>Upload and download rates, rate history, interface, IP address and session totals.</p></div>
       <div class="card"><h3><i style="background:var(--sys)"></i>Sensors</h3><p>CPU, GPU, SSD and battery temperatures, fans, system power, battery health and cycles.</p></div>
     </div>
+  </section>
+
+  <section id="screenshots">
+    <h2>The real thing</h2>
+    <p class="sub">Actual popovers, captured with Gauge's demo mode so the process list, IP address and drive names are sample values.</p>
+    <img class="shot" src="screenshots/popovers.png" alt="Gauge's CPU, memory, network and sensors popovers" loading="lazy">
   </section>
 
   <section>

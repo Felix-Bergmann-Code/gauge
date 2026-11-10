@@ -54,7 +54,21 @@ final class Monitor {
         t.tolerance = interval * 0.1
         RunLoop.main.add(t, forMode: .common)
         timer = t
+        if Demo.isEnabled, cpuUser.values.isEmpty { prefillDemoHistory() }
         sample()
+    }
+
+    private func prefillDemoHistory() {
+        func fill(_ h: inout History, _ values: [Double]) { values.forEach { h.push($0) } }
+        fill(&cpuUser, Demo.series(base: 0.22, swing: 0.12, noise: 0.05))
+        fill(&cpuSystem, Demo.series(base: 0.08, swing: 0.04, noise: 0.02, phase: 1))
+        fill(&gpuHistory, Demo.series(base: 0.18, swing: 0.12, noise: 0.05, phase: 2))
+        fill(&memoryHistory, Demo.series(base: 0.62, swing: 0.03, noise: 0.005))
+        fill(&downloadHistory, Demo.series(base: 900_000, swing: 700_000, noise: 250_000, phase: 3))
+        fill(&uploadHistory, Demo.series(base: 120_000, swing: 90_000, noise: 40_000, phase: 4))
+        fill(&readHistory, Demo.series(base: 6_000_000, swing: 5_000_000, noise: 2_000_000, phase: 5))
+        fill(&writeHistory, Demo.series(base: 2_500_000, swing: 2_000_000, noise: 800_000, phase: 6))
+        fill(&cpuTempHistory, Demo.series(base: 49, swing: 4, noise: 0.6, phase: 7))
     }
 
     func panelOpened(_ module: Module) {
@@ -91,6 +105,13 @@ final class Monitor {
     }
 
     private func apply(_ s: Samplers.Snapshot) {
+        var s = s
+        if Demo.isEnabled {
+            if s.processes != nil { s.processes = Demo.processes() }
+            if s.network.ipv4 != nil { s.network.ipv4 = Demo.ipv4 }
+            Demo.fakeTraffic(&s.network)
+            s.volumes = s.volumes.map(Demo.volumes)
+        }
         inFlight = false
         cpu = s.cpu
         cpuUser.push(s.cpu.user)

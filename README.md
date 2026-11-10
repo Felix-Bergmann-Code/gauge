@@ -13,6 +13,10 @@ CPU, GPU, memory, disk, network and sensors. Each one is its own menu bar item w
 
 [Website](https://felix-bergmann-code.github.io/gauge/) · [Contributing](CONTRIBUTING.md) · [Sister app: Isle](https://github.com/Felix-Bergmann-Code/isle)
 
+<br>
+
+<img src="docs/screenshots/popovers.png" alt="Gauge's CPU, memory, network and sensors popovers" width="100%">
+
 </div>
 
 ---
@@ -61,6 +65,7 @@ CPU, Memory, Network and Sensors are on by default. The gear in any popover togg
 BIN="$(swift build -c release --show-bin-path)/Gauge"
 "$BIN" --dump          # print every reading once (great for testing a new Mac model)
 "$BIN" --open cpu      # open a module's popover on launch
+"$BIN" --demo          # sample processes, IP and drive names, pre-filled graphs (for screenshots)
 ```
 
 ## Performance
